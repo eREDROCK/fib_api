@@ -2,9 +2,9 @@ version: '3.9'
 services:
   api:
     container_name: fib_server
-    build: ./app 
+    build: ./api
     volumes:
-      - ./app:/app
+      - ./api:/api
     ports:
       - 8888:8888
     tty: true
