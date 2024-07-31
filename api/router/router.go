@@ -10,8 +10,8 @@ import (
 func NewRouter() *echo.Echo {
 	e := echo.New()
 
-	// ミドルウェアを設定
-	e.Use(middleware.Logger())
+	// ミドルウェアを設定→本番環境用に消去
+	// e.Use(middleware.Logger())
 	e.Use(middleware.Recover())
 
 	//APIのルーティング
