@@ -1,8 +1,10 @@
-version: '3.9' 
+version: '3' 
 services:
   api:
     container_name: fib_server
-    build: ./api
+    build: 
+      context: ./api/.
+      dockerfile: Dockerfile.dev
     volumes:
       - ./api:/api
     ports:
