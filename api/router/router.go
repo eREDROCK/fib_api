@@ -16,6 +16,7 @@ func NewRouter() *echo.Echo {
 
 	//APIのルーティング
 	e.GET("/fib", controllers.GetFib)
+	e.GET("/birthday", controllers.GetBirthDay)
 
 	return e
 }
