@@ -13,12 +13,12 @@ func GetBirthDay(c echo.Context) error {
 	nstr := c.QueryParam("n")
 	dateArr := strings.Split(nstr, "-")
 	if len(dateArr) != 3 {
-		return c.JSON(http.StatusBadRequest, map[string]string{"status": "400", "message": "Invalid request"})
+		return c.JSON(http.StatusBadRequest, map[string]string{"status": "400", "message": "Invalid request format"})
 	}
 
-	year, _ := strconv.Atoi(dateArr[0])
-	month, _ := strconv.Atoi(dateArr[1])
-	day, _ := strconv.Atoi(dateArr[2])
+	year, errYear := strconv.Atoi(dateArr[0])
+	month, errMonth := strconv.Atoi(dateArr[1])
+	day, errDay := strconv.Atoi(dateArr[2])
 
 	fmt.Print(year)
 	fmt.Print(month)
@@ -27,6 +27,18 @@ func GetBirthDay(c echo.Context) error {
 	if month == 1 || month == 2 {
 		year--
 		month += 12
+	}
+
+	if errYear != nil || errMonth != nil || errDay != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"status": "400", "message": "Invalid date values "})
+	}
+
+	if month < 1 || month > 12 {
+		return c.JSON(http.StatusBadRequest, map[string]string{"status": "400", "message": "Invalid month"})
+	}
+
+	if day < 1 || day > 31 {
+		return c.JSON(http.StatusBadRequest, map[string]string{"status": "400", "message": "Invalid day"})
 	}
 
 	K := year % 100
